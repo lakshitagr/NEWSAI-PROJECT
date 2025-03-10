@@ -13,7 +13,8 @@ import aiRoutes from './routes/aiRoutes.js';
 import News from './model/News.js';
 import cron from 'node-cron';
 import admin from 'firebase-admin'
-import serviceAccount from  './key/newsai-b4525-firebase-adminsdk-fbsvc-01ee7d56ab.json'  with { type: "json" } ;
+import serviceAccount from  './key/newsai-b4525-firebase-adminsdk-fbsvc-01ee7d56ab.json' with { type: "json" };
+
 const app = express();
 morgan('combined');
 app.use(
@@ -90,3 +91,9 @@ app.use('/api', readingHistoryRoutes);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on the PORT ${process.env.PORT}`);
 });
+
+//.env
+//database connection
+//dataconnection function => app.js
+
+// http://localhost:5173 => localhost:3000
