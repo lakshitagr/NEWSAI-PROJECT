@@ -1,14 +1,14 @@
-import puppeteer from 'puppeteer';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import dotenv from 'dotenv';
-import NewsSummary from '../model/NewsSummary.js';
+import puppeteer from "puppeteer";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from "dotenv";
+import NewsSummary from "../model/NewsSummary.js";
 dotenv.config();
 console.log(process.env.GEMINI_API_KEY);
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const generateSummary = async (content) => {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const response = await model.generateContent(
     `please summarize these content ${content}`
   );
@@ -32,12 +32,12 @@ export const newsSummarize = async (req, res) => {
     const page = await browser.newPage();
     console.log(page);
 
-    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.goto(url, { waitUntil: "domcontentloaded" });
 
     const extractedText = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('p'))
+      return Array.from(document.querySelectorAll("p"))
         .map((p) => p.innerText)
-        .join(' ');
+        .join(" ");
     });
     await browser.close();
     const summary = await generateSummary(extractedText);
